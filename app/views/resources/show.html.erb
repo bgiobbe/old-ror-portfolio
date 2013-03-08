@@ -1,0 +1,28 @@
+<p>
+  <b>Title:</b>
+  <%=h @resource.title %>
+</p>
+
+<p>
+  <b>Author:</b>
+  <%=h @resource.author %>
+</p>
+
+<p>
+  <b>Medium:</b>
+  <%=h @resource.medium %>
+</p>
+
+<p>
+  <b>Pubinfo:</b>
+  <%=h @resource.pubinfo %>
+</p>
+
+<p>
+  <b>Checkout:</b>
+  <%=h @resource.checkout %>
+</p>
+
+
+<%= link_to 'Edit', edit_resource_path(@resource) %> |
+<%= link_to 'Back', resources_path %>
