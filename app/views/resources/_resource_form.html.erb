@@ -1,0 +1,32 @@
+<%#
+# Form for creating or editing a Resource
+%>
+
+  <% form_for(@resource) do |f| %>
+    <%= f.error_messages %>
+    <table>
+      <tr>
+        <td><%= f.label :medium %></td>
+        <td><%= f.select :medium, @media_options %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :title %></td>
+        <td><%= f.text_field :title %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :author %></td>
+        <td><%= f.text_field :author %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :pubinfo %></td>
+        <td><%= f.text_field :pubinfo %></td>
+      </tr>
+    </table>
+    <p>
+      <%= f.label :checkout, "Checked Out" %><br/>
+      <%= f.date_select :checkout %>
+    </p>
+    <p>
+      <%= f.submit @submit_text %>
+    </p>
+  <% end %>

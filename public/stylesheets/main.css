@@ -1,0 +1,116 @@
+/* Base 7f063a, dark 33081a or 0c424c, light 8c8015 or 00abcc */
+/* Base e384af, dark 96486c or 508c96, light e8e09e or 55a3b0 */
+
+body {
+  background-color: white;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-size: 14px;
+}
+.inline-block { display: inline-block; }
+.smaller-inline-block {
+    font-size: smaller;
+    display: inline-block;
+    margin: auto 10px;
+}
+div#toolbar {
+  margin: 10px 0;
+  background: #efe;
+  font-size: 12px;
+}
+div#home {
+  background-image: url('../images/rainbow_swirl.png');
+  background-repeat: no-repeat;
+  width: 800px;
+  margin: auto;
+  padding: 50px;
+  font-size: 18px;
+}
+div#home header {
+  width: 700px;
+  border-bottom: 4px ridge black;
+  font-size: 4em;
+  text-shadow: 5px 5px 5px #888888;
+}
+div#home section {
+  padding-top:  1em;
+  padding-left: 50px;
+}
+div#home section header {
+  border-style: none;
+  font-size: 2em;
+  text-shadow: none;
+}
+fieldset {
+  background: #efe;
+  width: 90%;
+  margin: 20px auto;
+  border-radius: 20px;
+  -moz-border-radius: 20px; /* Old Firefox */
+}
+.instructions {
+  font-size: smaller;
+  width: 500px;
+}
+legend {
+  color: #dfd;
+  background: #141;
+  font-family: sans-serif;
+  padding: 0.2em 1em;
+}
+
+/* Directional arrow on current sort column in a sortable table */
+
+.sortable th .current {
+  padding-right: 12px;
+  background-repeat: no-repeat;
+  background-position: right center;
+}
+
+.sortable th .asc {
+  background-image: url(/images/up_arrow.png)
+}
+.sortable th .desc {
+  background-image: url(/images/down_arrow.png)
+}
+
+/* The error box */
+
+.fieldWithErrors {
+  padding: 2px;
+  background-color: #EEFFEE;
+  display: inline;
+}
+
+.fieldWithErrors * {
+  background-color: red;
+}
+
+#errorExplanation {
+  width: 400px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+#errorExplanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  background-color: #c00;
+  color: #fff;
+}
+
+#errorExplanation p {
+  color: #333;
+  margin-bottom: 0;
+  padding: 5px;
+}
+
+#errorExplanation ul li {
+  font-size: 12px;
+  list-style: square;
+}
