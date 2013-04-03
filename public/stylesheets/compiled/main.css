@@ -1,0 +1,173 @@
+/* Base 7f063a, dark 33081a or 0c424c, light 8c8015 or 00abcc */
+/* Base e384af, dark 96486c or 508c96, light e8e09e or 55a3b0 */
+* {
+  margin: 0;
+  padding: 0; }
+
+body {
+  background-image: url(/images/rainbow_swirl.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  color: black;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-size: 14px; }
+
+#page-header {
+  background-color: white;
+  width: 800px;
+  margin: 10px auto 5px auto;
+  border: 5px outset black;
+  padding: 10px; }
+  #page-header h1 {
+    margin-bottom: 5px;
+    border-bottom: 4px ridge black;
+    font-size: 3em;
+    text-shadow: 5px 5px 5px #888888; }
+  #page-header nav {
+    display: inline-block;
+    height: 20px;
+    margin-bottom: 5px;
+    font-size: 11px; }
+    #page-header nav ul {
+      list-style-type: none;
+      margin: auto; }
+    #page-header nav li {
+      height: 20px;
+      background-color: black;
+      border: 2px solid white;
+      padding-left: 10px;
+      padding-right: 10px;
+      font-variant: small-caps;
+      float: left; }
+      #page-header nav li a {
+        color: white;
+        font-weight: bold;
+        font-variant: small-caps;
+        text-decoration: none;
+        display: block;
+        /* makes whole block clickable (instead of just text) */
+        line-height: 20px; }
+
+#page {
+  background-color: white;
+  width: 800px;
+  margin: 5px auto 20px auto;
+  border: 5px outset black;
+  padding: 10px; }
+
+#home {
+  padding: 30px 100px; }
+  #home a {
+    color: black; }
+    #home a:hover {
+      color: black; }
+    #home a:visited {
+      color: black; }
+  #home section {
+    margin: 0 auto; }
+    #home section header {
+      font-size: 2em; }
+    #home section li {
+      margin-top: 5px;
+      margin-left: 30px; }
+
+div#toolbar {
+  width: 800px;
+  margin: 10px 0 20px 0;
+  padding: 5px 0;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  font-size: 12px; }
+  div#toolbar a {
+    text-decoration: none; }
+  div#toolbar .pagination {
+    display: inline-block; }
+
+table.sortable {
+  width: 800px;
+  border-collapse: collapse;
+  border: 1px solid #777777;
+  font: 12px arial, sans-serif;
+  /* Directional arrow on current sort column */ }
+  table.sortable th, table.sortable td {
+    border: 1px solid #777777;
+    padding: 3px; }
+  table.sortable th .current {
+    padding-right: 12px;
+    background-repeat: no-repeat;
+    background-position: right center; }
+  table.sortable th .asc {
+    background-image: url(/images/up_arrow.png); }
+  table.sortable th .desc {
+    background-image: url(/images/down_arrow.png); }
+
+.clear {
+  clear: both; }
+
+.inline-block {
+  display: inline-block; }
+
+.smaller-inline-block {
+  font-size: smaller;
+  display: inline-block;
+  margin: auto 10px; }
+
+fieldset {
+  background: #efe;
+  width: 90%;
+  margin: 20px auto;
+  padding: 10px 20px;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  /* Old Firefox */ }
+
+legend {
+  color: #dfd;
+  background: #141;
+  font-family: sans-serif;
+  padding: 0.2em 1em; }
+
+p.instructions {
+  font-size: smaller; }
+
+ul.instructions {
+  margin-left: 30px;
+  font-size: smaller; }
+
+/* The error box */
+.fieldWithErrors {
+  padding: 2px;
+  background-color: #EEFFEE;
+  display: inline; }
+
+.fieldWithErrors * {
+  background-color: red; }
+
+#errorExplanation {
+  width: 400px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0; }
+
+#errorExplanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  background-color: #c00;
+  color: #fff; }
+
+#errorExplanation p {
+  color: #333;
+  margin-bottom: 0;
+  padding: 5px; }
+
+#errorExplanation ul li {
+  font-size: 12px;
+  list-style: square; }
