@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <title>
+      Beth Giobbe Portfolio | <%=h @title %>
+    </title>
+    <%= stylesheet_link_tag 'compiled/main' %>
+  </head>
+  <body>
+      <header id='page-header'>
+        <h1>Beth Giobbe</h1>
+        <nav>
+          <ul>
+            <li><%= link_to "Home", root_path %></li>
+            <li><%= link_to "Consulting Project", "/concours/" %></li>
+            <li><%= link_to "Library History", resources_path %></li>
+            <li><%= link_to "Résumé", "/pages/resume" %></li>
+            <li><%= link_to "Vision", "/pages/vision" %></li>
+            <li><%= link_to "Interests", "/pages/interests" %></li>
+          </ul>
+        </nav>
+      </header>
+
+      <div id='page'>
+
+      <!-- Notice, if any -->
+      <p style="color: green"><%= notice %></p>
+
+      <!-- Page Content -->
+      <%= yield %>
+      
+    </div>
+  </body>
+</html>
