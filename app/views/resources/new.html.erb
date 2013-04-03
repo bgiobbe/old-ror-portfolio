@@ -1,31 +1,35 @@
-<h1>New resource</h1>
 
-<% form_for(@resource) do |f| %>
-  <%= f.error_messages %>
+<h1>Add Library Items</h1>
 
-  <p>
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
+<fieldset>
+  <legend>Upload Resources File</legend>
+  <p class='instructions'>
+    You can add new resources from a text file:
   </p>
-  <p>
-    <%= f.label :author %><br />
-    <%= f.text_field :author %>
-  </p>
-  <p>
-    <%= f.label :medium %><br />
-    <%= f.text_field :medium %>
-  </p>
-  <p>
-    <%= f.label :pubinfo %><br />
-    <%= f.text_field :pubinfo %>
-  </p>
-  <p>
-    <%= f.label :checkout %><br />
-    <%= f.date_select :checkout %>
-  </p>
-  <p>
-    <%= f.submit 'Create' %>
-  </p>
-<% end %>
+  <ul class='instructions'>
+    <li>
+      Column headings on the first line: &nbsp;
+      <em>Title &nbsp;  Author &nbsp;  Pub Info &nbsp;  Checkout</em>
+    </li>
+    <li>Data for one resource per line</li>
+    <li>Columns separated by tabs</li>
+    <li><strong>Title</strong>
+      and <strong>Checkout</strong> are required.
+    </li>
+    <li>Checkout is the date the resource was checked
+      out in <strong>mm-dd-yyyy</strong> form.
+    </li>
+  </ul>
+  <% form_tag({:action => :upload_tsv}, :multipart => true) do %>
+    <%= label_tag :tsv_file, "Select a file to upload: "%>
+    <%= file_field_tag :tsv_file %>
+    <%= submit_tag "Upload" %>
+  <% end %>
+</fieldset>
+
+<fieldset>
+  <legend>Add a New Resource</legend>
+  <%= render :partial => "resource_form" %>
+</fieldset>
 
 <%= link_to 'Back', resources_path %>

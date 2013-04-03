@@ -1,32 +1,10 @@
-<h1>Editing resource</h1>
 
-<% form_for(@resource) do |f| %>
-  <%= f.error_messages %>
+<fieldset>
+  <legend>Editing Resource</legend>
 
-  <p>
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
-  </p>
-  <p>
-    <%= f.label :author %><br />
-    <%= f.text_field :author %>
-  </p>
-  <p>
-    <%= f.label :medium %><br />
-    <%= f.text_field :medium %>
-  </p>
-  <p>
-    <%= f.label :pubinfo %><br />
-    <%= f.text_field :pubinfo %>
-  </p>
-  <p>
-    <%= f.label :checkout %><br />
-    <%= f.date_select :checkout %>
-  </p>
-  <p>
-    <%= f.submit 'Update' %>
-  </p>
-<% end %>
+  <%= render :partial => "resource_form" %>
+
+</fieldset>
 
 <%= link_to 'Show', @resource %> |
 <%= link_to 'Back', resources_path %>

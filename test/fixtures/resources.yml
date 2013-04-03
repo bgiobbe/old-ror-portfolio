@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: resources
+#
+#  id         :integer          not null, primary key
+#  title      :string(255)
+#  author     :string(255)
+#  medium     :integer
+#  pubinfo    :string(255)
+#  checkout   :date
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
