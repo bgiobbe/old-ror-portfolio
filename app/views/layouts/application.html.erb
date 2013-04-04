@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <title>
-      Beth Giobbe Portfolio | <%=h @title %>
+      Beth Giobbe Portfolio | <%=h @title || params[:action].capitalize %>
     </title>
     <%= stylesheet_link_tag 'compiled/main' %>
   </head>

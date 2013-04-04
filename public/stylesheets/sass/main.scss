@@ -2,11 +2,11 @@
 /* Base e384af, dark 96486c or 508c96, light e8e09e or 55a3b0 */
 
 $width: 800px;
-$bg-color: white;
-$main-color: black;
+$bg-color: #FCFAF2;
+$main-color: #3D2E00;
 $default-border: 1px solid black;
-$nav-bar-height: 20px;
-$nav-bar-bg-color: black;
+$nav-bar-height: 22px;
+$nav-bar-bg-color: #7A5C00  /* #523D00 #664C00 #8F6B00*/;
 
 * {
   margin: 0;
@@ -14,7 +14,7 @@ $nav-bar-bg-color: black;
 }
 body {
   background: {
-    image: url(/images/rainbow_swirl.png);
+    image: url(/images/rainbow_swirl800x800.png);
     size: cover;
     repeat:no-repeat;
   }
@@ -34,7 +34,7 @@ body {
 
   h1 {
     margin-bottom: 5px;
-    border-bottom: 4px ridge black;
+    border-bottom: 4px ridge $main-color;
     font-size: 3em;
     text-shadow: 5px 5px 5px #888888;
   }
@@ -47,17 +47,17 @@ body {
     ul {
       list-style-type: none;
       margin: auto;
-    }
+   }
     li {
       height: $nav-bar-height;
       background-color: $nav-bar-bg-color;
-      border: 2px solid white;
+      border: 3px solid $bg-color;
       padding: { left: 10px; right: 10px; }
       font-variant:small-caps;
       float: left;
 
       a {
-        color: white;
+        color: $bg-color;
         font-weight: bold;
         font-variant:small-caps;
         text-decoration:none;
@@ -74,6 +74,10 @@ body {
   margin: 5px auto 20px auto;
   border: 5px outset black;
   padding: 10px;
+ 
+  ul {
+    margin-left: 15px;
+  }
 }
 #home {
   padding: 30px 100px;
@@ -168,6 +172,47 @@ ul.instructions {
 li.instructions  {
 }
 
+/* Resume page */
+
+#resume {
+  * { font: 13px Tahoma, Arial, Helvetica, sans-serif; }
+  h1 {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: { top: 10px; bottom: 5px; }
+  }
+  h2 {
+    font-size: 1.1em;
+    font-weight: bold;
+  }
+  a { color: black; text-decoration: none; }
+  a:hover { color: blue; text-decoration: underline; }
+
+  #contact { display: none; }
+  #profile {
+    table { margin: {top: 5px; left: 14px;} }
+    th {
+      text-align: left;
+      vertical-align: top;
+      padding-top: 6px;
+    }
+    td {
+      @extend th;
+      padding-left: 10px;
+    }
+  }
+  #education {
+    h2 {
+      margin: { top: 10px; bottom: 5px; }
+    }
+    sup { font-size: 0.6em; }
+  }
+  #experience {
+    .job { padding: {top: 5px; bottom: 10px;} }
+    .title { font-weight: bold; }
+    .block-text { padding-top: 5px; padding-left: 10px; }
+  }
+}
 
 /* The error box */
 
