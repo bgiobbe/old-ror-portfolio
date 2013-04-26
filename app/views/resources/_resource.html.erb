@@ -1,0 +1,13 @@
+<%#
+# Render one row of library history table
+%>
+
+  <tr>
+    <td><%=h Resource::MEDIA_DESC[resource.medium] %></td>
+    <td><%= link_to h(resource.title), resource %></td>
+    <td><%=h resource.author %></td>
+    <td><%=h resource.checkout.strftime("%m-%d-%Y") %></td>
+    <td><%= link_to 'Edit', edit_resource_path(resource) %></td>
+    <td><%= link_to 'Delete', resource, :confirm => 'Are you sure?',
+              :method => :delete %></td>
+  </tr>
