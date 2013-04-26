@@ -1,5 +1,15 @@
-<h1>Library List</h1>
+<div>
+  <h1 class='float-left'><%= @title %></h1>
 
+  <div id='search'>
+    <% form_tag(search_resources_path, :method => :get) do %>
+      <%= label_tag(:q, "Author:") %>    
+      <%= text_field_tag(:q) %>
+      <%= hidden_field_tag :per_page, items_per_page %>
+      <%= submit_tag("Search") %>
+    <% end %>
+  </div>
+</div>
 <div id="toolbar">
   <%= link_to 'Add items', new_resource_path %>
   | <%= @count %> items | <%= page_entries_info @resources %><br />
@@ -15,23 +25,11 @@
     <th><%= sortable "medium", "Type" %></th>
     <th><%= sortable "title", "Title" %></th>
     <th><%= sortable "author", "Author" %></th>
-    <th><%= sortable "pubinfo", "Pub Info" %></th>
     <th><%= sortable "checkout", "Checked Out" %></th>
     <th colspan="2"></th>
   </tr>
 
-<% @resources.each do |resource| %>
-  <tr>
-    <td><%=h Resource::MEDIA_DESC[resource.medium] %></td>
-    <td><%= link_to h(resource.title), resource %></td>
-    <td><%=h resource.author %></td>
-    <td><%=h resource.pubinfo %></td>
-    <td><%=h resource.checkout.strftime("%m-%d-%Y") %></td>
-    <td><%= link_to 'Edit', edit_resource_path(resource) %></td>
-    <td><%= link_to 'Delete', resource, :confirm => 'Are you sure?',
-              :method => :delete %></td>
-  </tr>
-<% end %>
+  <%= render :partial => 'resource', :collection => @resources %>
+
 </table>
 
-<br />

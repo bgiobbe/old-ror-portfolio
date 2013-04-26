@@ -6,7 +6,7 @@
 
 body {
   background-image: url(/images/rainbow_swirl800x800.png);
-  background-size: cover;
+  background-size: 100%;
   background-repeat: no-repeat;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -60,23 +60,13 @@ body {
   #page ul {
     margin-left: 15px; }
 
-#home {
-  padding: 30px 100px; }
-  #home a {
-    color: #3d2e00; }
-    #home a:hover {
-      color: #3d2e00; }
-    #home a:visited {
-      color: #3d2e00; }
-  #home section {
-    margin: 0 auto; }
-    #home section header {
-      font-size: 2em; }
-    #home section li {
-      margin-top: 5px;
-      margin-left: 30px; }
+div#search {
+  float: right;
+  vertical-align: middle;
+  margin: 10px; }
 
 div#toolbar {
+  clear: both;
   width: 800px;
   margin: 10px 0 20px 0;
   padding: 5px 0;
@@ -109,6 +99,12 @@ table.sortable {
 .clear {
   clear: both; }
 
+.float-left {
+  float: left; }
+
+.float-right {
+  float: right; }
+
 .inline-block {
   display: inline-block; }
 
@@ -138,6 +134,64 @@ p.instructions {
 ul.instructions {
   margin-left: 30px;
   font-size: smaller; }
+
+/* Home/index page */
+#home {
+  padding: 30px 80px; }
+  #home a:link, #home a:visited {
+    color: #3d2e00;
+    text-decoration: none; }
+  #home a:hover {
+    color: #0000ff;
+    text-decoration: underline; }
+  #home a:active {
+    color: #ff0000;
+    text-decoration: underline; }
+  #home em {
+    font-weight: bold;
+    font-style: italic; }
+  #home h2 {
+    margin: 1em 0;
+    text-align: center; }
+  #home p {
+    margin: 1em 0;
+    text-align: justify; }
+  #home nav {
+    margin-bottom: 1em; }
+    #home nav section header {
+      margin-bottom: 0.5em;
+      font-size: 2em; }
+    #home nav section ul {
+      margin-bottom: 1em; }
+    #home nav section li {
+      list-style-type: none; }
+  #home #why {
+    font-family: Georgia, serif; }
+    #home #why ul {
+      margin-left: 40px; }
+    #home #why .hilite {
+      text-shadow: 5px 5px 5px #ffff99; }
+
+/* Concours pages */
+#concours {
+  height: 1000px;
+  font-family: Georgia, serif; }
+  #concours a:link, #concours a:visited {
+    color: #3d2e00;
+    text-decoration: none;
+    border-bottom: 1px dotted #3d2e00; }
+  #concours a:hover {
+    color: #0000ff;
+    text-decoration: underline; }
+  #concours a:active {
+    color: #ff0000;
+    text-decoration: underline; }
+  #concours img {
+    padding: 5px; }
+  #concours p {
+    margin-bottom: 1em; }
+  #concours .middle {
+    vertical-align: middle; }
 
 /* Resume page */
 #resume * {
@@ -180,6 +234,74 @@ ul.instructions {
 #resume #experience .block-text {
   padding-top: 5px;
   padding-left: 10px; }
+
+/* Vision page */
+#vision {
+  /*
+  $vision-bg: $bg-color;
+  $vision-fg: #001A66;
+  background-color: $vision-bg;
+  color: $vision-fg;
+  */ }
+  #vision article {
+    margin-bottom: 20px; }
+  #vision p {
+    margin-top: 1em; }
+  #vision dl {
+    margin: 0 20px; }
+  #vision dt {
+    font-weight: bold;
+    padding: 3px 0; }
+  #vision dd {
+    margin-left: 15px;
+    font-size: 90%; }
+    #vision dd ul {
+      margin-left: 30px; }
+  #vision .plaque {
+    width: 75%;
+    background-color: linen;
+    margin: 1em auto;
+    border: 4px outset #3d2e00;
+    padding: 10px;
+    text-align: center; }
+
+#interests header {
+  clear: both;
+  font-size: 1.5em;
+  color: #3D5C00;
+  padding-top: 15px;
+  padding-bottom: 10px; }
+#interests div.img {
+  margin: 5px;
+  border: 1px solid blue;
+  height: auto;
+  width: auto;
+  float: left;
+  text-align: center; }
+#interests div.img img {
+  display: inline;
+  margin: 3px;
+  border: 1px solid white; }
+#interests div.img a:hover img {
+  border: 1px solid blue; }
+#interests div.desc {
+  text-align: center;
+  font-weight: normal;
+  font-size: 75%;
+  width: 120px;
+  margin: 2px; }
+#interests article#garden img {
+  float: right;
+  padding: 5px 0 5px 5px; }
+#interests article#garden p {
+  padding: 0 0 0.5em 0; }
+#interests article#herbs {
+  margin-bottom: 10px; }
+  #interests article#herbs img {
+    float: left;
+    padding: 5px 5px 5px 0; }
+  #interests article#herbs p {
+    padding: 0 0 0.5em 0; }
 
 /* The error box */
 .fieldWithErrors {

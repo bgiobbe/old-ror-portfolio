@@ -22,6 +22,19 @@ class ResourcesController < ApplicationController
     end
   end
 
+  def search
+    require 'will_paginate'
+    condition = ["author LIKE ?", "%%%s%%" % params[:q]]
+    @title = 'Search Results'
+    @resources = Resource.paginate(
+      :conditions => condition,
+      :page => page_number, :per_page => items_per_page,
+      :order => sort_column + " " + sort_direction
+    )
+    @count = Resource.count(:conditions => condition)
+    render 'index'
+  end
+  
   # GET /resources/1
   # GET /resources/1.xml
   def show

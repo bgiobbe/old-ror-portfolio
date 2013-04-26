@@ -3,6 +3,7 @@
 
 $width: 800px;
 $bg-color: #FCFAF2;
+$bg-brighter: #FAF0E6;
 $main-color: #3D2E00;
 $default-border: 1px solid black;
 $nav-bar-height: 22px;
@@ -15,7 +16,7 @@ $nav-bar-bg-color: #7A5C00  /* #523D00 #664C00 #8F6B00*/;
 body {
   background: {
     image: url(/images/rainbow_swirl800x800.png);
-    size: cover;
+    size: 100%;
     repeat:no-repeat;
   }
   -webkit-background-size: cover;
@@ -55,7 +56,7 @@ body {
       padding: { left: 10px; right: 10px; }
       font-variant:small-caps;
       float: left;
-
+ 
       a {
         color: $bg-color;
         font-weight: bold;
@@ -79,26 +80,14 @@ body {
     margin-left: 15px;
   }
 }
-#home {
-  padding: 30px 100px;
-  
-  a {
-    color: $main-color;
-    &:hover { color: $main-color; }
-    &:visited { color: $main-color; }
-  }
-  section {
-    margin: 0 auto;
 
-    header { font-size: 2em; }
-    li {
-      margin-top: 5px;
-      margin-left: 30px;
-    }
-  }
+div#search {
+  float: right;
+  vertical-align: middle;
+  margin: 10px;
 }
-
 div#toolbar {
+  clear: both;
   width: $width;
   margin: 10px 0 20px 0;
   padding: 5px 0;
@@ -141,6 +130,8 @@ table.sortable {
 }
 
 .clear { clear: both; }
+.float-left { float: left; }
+.float-right { float: right; }
 .inline-block { display: inline-block; }
 .smaller-inline-block {
     font-size: smaller;
@@ -170,6 +161,60 @@ ul.instructions {
   font-size: smaller;
 }
 li.instructions  {
+}
+
+/* Home/index page */
+
+#home {
+  padding: 30px 80px;
+  
+  a {
+    &:link, &:visited { color: $main-color; text-decoration: none; }
+    &:hover { color: #0000ff; text-decoration: underline; }
+    &:active { color: #ff0000; text-decoration: underline; }
+  }
+  em { font-weight: bold; font-style: italic; }
+
+  h2 { margin: 1em 0; text-align: center; }
+  p { margin: 1em 0; text-align: justify; }
+  nav {
+    margin-bottom: 1em;
+
+    section {
+      header { margin-bottom: 0.5em; font-size: 2em; }
+      ul { margin-bottom: 1em; }
+      li {
+        list-style-type: none;
+      }
+    }
+  }
+  #why {
+    font-family: Georgia, serif;
+    ul { margin-left: 40px; }
+
+    .hilite { text-shadow: 5px 5px 5px #ffff99; }
+  }
+}
+
+/* Concours pages */
+
+#concours {
+  height: 1000px;
+  font-family: Georgia, serif;
+
+  a {
+    &:link, &:visited {
+      color: $main-color;
+      text-decoration: none;
+      border-bottom: 1px dotted $main-color;
+    }
+    &:hover { color: #0000ff; text-decoration: underline; }
+    &:active { color: #ff0000; text-decoration: underline; }
+  }
+  img { padding: 5px; }
+  p { margin: {bottom: 1em; } }
+
+  .middle { vertical-align: middle; }
 }
 
 /* Resume page */
@@ -211,6 +256,77 @@ li.instructions  {
     .job { padding: {top: 5px; bottom: 10px;} }
     .title { font-weight: bold; }
     .block-text { padding-top: 5px; padding-left: 10px; }
+  }
+}
+
+/* Vision page */
+
+#vision {
+  /*
+  $vision-bg: $bg-color;
+  $vision-fg: #001A66;
+  background-color: $vision-bg;
+  color: $vision-fg;
+  */
+  article { margin-bottom: 20px; }
+  p { margin-top: 1em; }
+  dl { margin: 0 20px; }
+  dt { font-weight: bold; padding: 3px 0; }
+  dd { margin-left: 15px; font-size: 90%;
+    ul { margin-left: 30px; }
+  }
+  .plaque {
+    width: 75%;
+    background-color: $bg-brighter;
+    margin: 1em auto;
+    border: 4px outset $main-color;
+    padding: 10px;
+    text-align: center;
+  }
+}
+
+#interests {
+  header {
+    clear:both;
+    font-size: 1.5em;
+    color: #3D5C00;
+    padding-top: 15px; padding-bottom: 10px;
+  }
+  div.img {
+    margin:5px;
+    border:1px solid #0000ff;
+    height:auto;
+    width:auto;
+    float:left;
+    text-align:center;
+  }
+  div.img img {
+    display:inline;
+    margin:3px;
+    border:1px solid #ffffff;
+  }
+  div.img a:hover img { border:1px solid #0000ff; }
+  div.desc {
+    text-align:center;
+    font-weight:normal;
+    font-size: 75%;
+    width:120px;
+    margin:2px;
+  }
+  article#garden {
+    img {
+      float: right;
+      padding: 5px 0 5px 5px;
+    }
+    p { padding: 0 0 .5em 0; }
+  }
+  article#herbs {
+    margin-bottom: 10px;
+    img {
+      float: left;
+      padding: 5px 5px 5px 0;
+    }
+    p { padding: 0 0 .5em 0; }
   }
 }
 
