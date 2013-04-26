@@ -1,6 +1,56 @@
+<div id='interests'>
+  <header>Crocheting</header>
+  <article>
+    When I was a kid, Grandma was always crocheting or knitting something. I
+    started crocheting in college and was privileged to finish Grandma's last
+    afghan for her first grandchild's wedding. Here are a few of my creations.
+  </article>
+  <% @crochet_pics.each do |img_path, alt, desc| %>
+    <%= render :partial => 'image', :locals => { :img_path => img_path,
+        :alt => alt, :desc => desc } %>
+  <% end -%>
 
-<ul>
-  <li>Gardening</li>
-  <li>Herbal Medicine</li>
-  <li>Crocheting</li>
-</ul>
+  <header>Gardening</header>
+  <article id='garden'>
+    <%= image_tag('/images/garden/brassica_bed_2012_tn.jpg', :size => '202x120',
+        :alt => 'A stand of Japanese knotweed') %>
+    <p>
+      I like to grow things. In my yard I have two raised beds for vegetables,
+      right near the street. When my neighbors walk by, maybe they'll be
+      inspired to grow food, too. I use a combination of 
+      <a href='http://www.amazon.com/All-New-Square-Foot-Gardening/dp/1591862027/'
+         target='_blank'>Square-Foot Gardening</a> and 
+      <a href='http://en.wikipedia.org/wiki/Companion_planting' target='_blank'>
+      companion planting</a>, more-or-less organically.
+    </p>
+    <p>
+      Next to the house I have a small herb garden: sage, rosemary, thyme,
+      chives, oregano, lavender; mint in a container because it spreads like
+      crazy. Basil grows in the raised bed with the tomatoes because it attracts
+      bees, repels harmful bugs, and helps the tomatoes grow sweeter.
+   </p>
+   <p>Cooking is more fun with stuff I grow myself!</p>
+  </article>
+
+  <header>Herbal Medicine</header>
+  <article id='herbs'>
+    <%= image_tag('/images/garden/knotweed.jpg', :size => '240x180',
+        :alt => 'A stand of Japanese knotweed') %>
+    <p>
+      What if the cures for all our ills were hidden in the weeds in our yards?
+    </p>
+    <p>
+      Japanese Knotweed (pictured to the left) is an invasive species which
+      grows in my backyard. The young shoots of Japanese knotweed can be used 
+      like rhubarb in cooking! Its roots are full of <i>resveratrol</i>. "In
+      mouse and rat experiments, anticancer, anti-inflammatory, blood 
+      sugar-lowering and other beneficial cardiovascular effects of resveratrol
+      have been reported."
+      <a href='http://en.wikipedia.org/wiki/Resveratrol' target='_blank'> [ref]
+      </a>
+      Resveratrol can be very helpful in treating Lyme disease, too. The source
+      for commercially available resveratrol supplements is... Japanese
+      Knotweed! And I was trying to kill it off.
+    </p>
+  </article>
+</div>
