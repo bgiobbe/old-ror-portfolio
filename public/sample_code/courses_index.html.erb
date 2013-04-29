@@ -1,0 +1,59 @@
+<style>
+  #courses { border-collapse: collapse; margin-left: 20px; }
+  #courses th {background-color: #c0c0c0; border: 1px solid white; padding: 2px 5px;}
+  #courses td { border: 1px solid #999999; padding: 2px 5px; }
+</style>
+
+<h2>
+  <%= @active ? 'Current' : @year %> Classes for
+  <%=
+    if @view_by == 'teacher'
+      link_to(@teacher.display_name, school_teacher_path(@school, @teacher))
+    else
+      @school.name
+    end
+  %>
+</h2>
+
+<!-- Links -->
+<p>
+  <%= link_to "Create new class", new_school_course_path(@school) %>
+
+<% if @courses.size > 0 || @year == @current_year -%>
+  <%# note: this logic assumes that no intermediate years have no courses! %>
+  &nbsp;|&nbsp;
+  <%= link_to "View previous year classes",
+          school_courses_path(@school, :prior_year => @year.to_i - 1, :teacher_id => @teacher) %>
+<% end -%>
+
+<% if @year.to_i != @current_year -%>
+  &nbsp;|&nbsp;
+  <%= link_to "View next year classes",
+          school_courses_path(@school, :prior_year => @year.to_i + 1, :teacher_id => @teacher) %>
+<% end -%>
+
+<% if @teacher && (@current_user.admin || @current_user.coordinator) -%>
+  &nbsp;|&nbsp;
+  <%= link_to "View all current year classes",
+          school_courses_path(@school, :prior_year => @current_year) %>
+  <% end -%>
+</p>
+
+<!-- Course List -->
+<table id="courses"  class='sortable'>
+  <thead>
+    <tr>
+      <th><%= sortable "name", "Course" %></th>
+      <% unless @view_by == 'teacher' %>
+        <th><%= sortable "teacher_id", "Teacher" %></th>
+      <% end %>
+      <th><%= sortable "level", "Level" %></th>
+      <th><%= sortable "section", "Section" %></th>
+      <th># Students</th>
+      <!-- intentionally left off the last heading because it looks better -->
+    </tr>
+  </thead>
+  <tbody>
+    <%= render :partial => 'courses/course', :collection => @courses %>
+  </tbody>
+</table>

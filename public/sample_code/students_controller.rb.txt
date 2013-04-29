@@ -1,0 +1,400 @@
+class StudentsController < ApplicationController
+  include ApplicationHelper
+  helper_method :sort_column
+
+  # If a course is specified, show students in that course.
+  # If a teacher is specified, show students in that teacher's course(s).
+  # Otherwise, show the specified subset of students in given school.
+  # Default: show all students in given school.
+  def index
+    @school = users_school
+    @teacher = teacher
+    @course = course
+    
+    respond_to do |format|
+      format.html do
+        conditions = student_conditions
+        @count = Student.count(:conditions => conditions)
+        @students = Student.paginate(:conditions => conditions,
+          :per_page => items_per_page(20), :page => page_number,
+          :order => sort_column + " " + sort_direction)
+        if @course
+          @title = "Students in #{@course.display_info}"
+        elsif @teacher && !user_is_teacher?
+          @title = "Students for #{@teacher.display_name}"
+        else
+          @title = "#{subset.capitalize} Students for #{@school.name}"
+        end
+      end
+      
+      format.csv do
+        require 'fastercsv'
+        @students = Student.all(:conditions => student_conditions,
+            :order => sort_column + " " + sort_direction)
+        csv_string = FasterCSV.generate do |csv|
+          # header row
+#          csv << ["Student_ID", "Name", "GR at Enrl", "M/F", "YOG", "status", "Lv", "Div", "Name-Sect", "T.Lnm","Yr","Lv","Certificat"]
+          csv << ["Student ID", "Name", "M/F", "YOG", "GR at Enrl", "status", "Name-Sect", "T.Lnm", "Yr", "Lv", "Certificat"]
+          # data rows
+          @students.each do |s|
+            csv << [s.id, s.display_name, s.gender, s.yog,
+              s.grade_at_enrollment, s.status,
+              s.course != nil ? "#{s.course.name} #{s.course.section}" : nil,
+              s.course != nil ? "#{s.course.teacher.last_name}" : nil,
+#              s.course != nil ? s.course.level : nil,
+#              s.current_contest != nil ? s.current_contest.division : nil,
+              s.prior_contest != nil ? s.prior_contest.year : nil,
+              s.prior_contest != nil ? "#{s.prior_contest.level}#{s.prior_contest.division}" : nil,
+              s.prior_contest != nil ? s.prior_contest.certificate : nil ]
+          end
+        end
+        # send it to the browser
+        send_data csv_string,
+          :type => 'text/csv; charset=iso-8859-1; header=present',
+          :disposition => "attachment; filename=#{@school.name.tr(' ', '_')}_students_#{Date.today.to_s.tr('-', '_')}.csv"
+      end
+    end
+  end
+
+  def show
+    @student = Student.find(params[:id])
+    @contests = @student.contests.find(:all, :order => 'year ASC')
+    @contest_years = @contests.map { |c| c.year }
+  end
+
+  def edit
+    @student = Student.find(params[:id])
+    @school = users_school
+  end
+
+  def update
+    @student = Student.find(params[:id])
+    # User record should be editiable even they didn't participate in any contest and no need to update prior contest
+    # @student.prior_contest.update_attribute(:grade, params[:grade])
+    if @student.update_attributes(params[:student])
+      flash[:notice] = 'Student updated successfully!!'
+      if @current_user.role == 'student'
+        redirect_to edit_student_background_path(@student)
+      else
+        redirect_to school_students_path(@student.school)
+      end
+    else
+      render :action => 'new'
+    end
+  end
+
+  def new
+    @student = Student.new
+    @school = users_school
+    @student.school_id = @school.id unless @school.nil?
+    @teacher = teacher
+
+    # if coming from creating student login put in first  name, last name, email
+     unless session[:first_name].nil?
+
+      #search to see if there's an existing student w/first name, last name
+      @student.first_name = session[:first_name]
+      @student.last_name = session[:last_name]
+      @student.email = session[:email]
+    end
+  end
+
+  def create
+    @student = Student.new(params[:student])
+    @school = @student.school
+    if @student.save
+      # if coming from creating login associate new user to student and clear session vars
+      unless session[:first_name].nil?
+        @student.user = @current_user
+        # clear session vars, done
+        session[:first_name] = nil
+        session[:last_name] = nil
+        session[:email] = nil
+      end
+      flash[:notice] = 'Student created successfully.'
+      redirect_to school_students_path(@student.school)
+    else
+      render :action => 'new'
+    end
+  end
+
+  def bulk_assign
+    @transfers_allowed = user_is_admin?
+    unless request.post?
+      # GET
+      
+      @school = users_school
+      @teacher = teacher
+      @subset = subset('no-class-assigned')
+      conditions = student_conditions
+      @students = Student.paginate(:conditions => conditions,
+          :per_page => items_per_page, :page => page_number,
+          :order => sort_column + " " + sort_direction, :include => :contests)
+      @count = Student.count(:conditions => conditions)
+      @counts = Student.count(:conditions => conditions, :group => "status")
+      @courses = Course.all(:conditions => {:year => @current_year,
+          :school_id => @school.id
+      })
+      @schools = School.all(:conditions => {:active_ind => "Y"}, :order => :name)
+      @statuses = user_is_admin? ? RefStudentStatusType.all :
+          RefStudentStatusType.all(:conditions => {
+              :name => Student::BULK_ASSIGN_STATUS_TYPES
+          })
+      @title = "Assign \"#{@subset.capitalize}\" Students for #{@school.name}"
+    else
+      # POST
+      #render debug(:text) and return
+      
+      new_status = params[:new_values][:status]
+      new_course_id = params[:new_values][:course_id]
+      if @transfers_allowed
+        new_school_id = params[:new_values][:school_id]
+      end
+      students_list = params[:student_list]
+      if students_list
+        students_list.each_key do |id|
+          student = Student.find(id)
+          student.status = new_status unless (new_status.nil? || new_status.blank?)
+          student.course_id = new_course_id unless (new_course_id.nil? || new_course_id.blank?)
+          if @transfers_allowed && !(new_school_id.nil? || new_school_id.blank?)
+            student.school_id = new_school_id
+            student.status = 'Transferred within EMass.Chapt.'
+            student.course_id = nil
+          end
+          if student.status == 'No Class Assigned'
+            student.course_id = nil
+          end
+          student.save
+        end
+        flash[:notice] = '%d %s updated successfully.' % [students_list.size,
+          students_list.size == 1 ? "Student" : "Students"]
+      else
+        flash[:error] = 'No student(s) were selected.'
+      end
+      redirect_to bulk_assign_school_students_path(params[:school_id])
+    end
+  end
+
+  def edit_all_students
+    @school_all = School.all(:order=>'name')
+    if params[:order_by]
+      order_by = params[:order_by]
+    else
+      order_by = 'id desc'
+    end
+
+    unless request.post?
+      @course_teachers = Course.find(:all, :conditions => "school_id = #{params[:school_id]} and year = #{@current_year}")
+      @current_statuses = RefStudentStatus.find(:all, :order => 'sort_order ASC')
+      @students_to_display = Student.find(:all, :conditions =>['school_id = ?',params[:school_id] ], :order => order_by)
+      @school = users_school
+
+    else
+      if params[:studentlists] && params[:studentlists].size > 0
+        for student in params[:studentlists]
+          @student = Student.find(student[0])
+          #          @student.school_id = params[:school_list][student[0]]
+          @student.school_id = params[:student][:school_id]
+          @student.save
+        end
+      end
+      flash[:notice] = 'Students updated successfully.'
+      redirect_to edit_all_students_school_students_path(params[:school_id])
+    end
+  end
+
+  # allow user to delete a new student
+  def delete
+    begin
+      @school = users_school
+      @student = Student.find(params[:id])
+      if @student.school == @school && @student.status == 'new'
+        @student.destroy
+      else
+        flash[:error] = "Deletion of student %d (%s) in school %d not allowed" %
+          [ params[:id], @student.status, params[:school_id] ]
+      end
+    rescue
+      flash[:error] = "Could not delete student #{params[:id]}"
+    end
+    redirect_to :back
+  end
+  
+  def bulk_upload
+    #render :text => params.to_yaml and return
+    @school = users_school
+    if @school
+      conditions = {:status => 'new'}
+      @count = @school.students.count(:conditions => conditions)
+      @students = @school.students.paginate(:conditions => conditions,
+          :per_page => items_per_page, :page => page_number,
+          :order => sort_column + " " + sort_direction)
+    end
+  end
+
+  def csv_import
+    #render :text => params.to_yaml and return
+    #    @parsed_file=CSV::Reader.parse(params[:dump][:file])
+    
+    require 'fastercsv'
+    file = params[:dump][:file]
+    # render :text => '<pre>aaaa' + params.to_yaml and return
+    @parsed_file = FasterCSV.parse(file, :headers => true, :header_converters => :symbol)
+    school_id = params[:dump][:school_id]
+    school = School.find school_id   
+    
+    n=0
+    d=0
+    
+    #    render :text => '<pre>'+@parsed_file.to_yaml and return
+    @parsed_file.each  do |row|
+      r=Student.new
+      r.last_name = row[:last_name]
+      r.first_name=row[:first_name]
+      r.yog=row[:yog]
+      r.gender = row[:gender]
+      r.grade_at_enrollment = row[:grade]
+      r.status = 'new'
+      r.school_id = school_id
+      #duplicate = Student.find(:all, :conditions => "last_name = '#{r.last_name.gsub(/[']/, '\\\\\'')}' AND first_name = '#{r.first_name.gsub(/[']/, '\\\\\'')}' AND school_id = #{r.school_id}")
+      duplicate = Student.all(:conditions => {:school_id => r.school_id,
+          :last_name => r.last_name, :first_name => r.first_name})
+      if duplicate.size > 0
+        RAILS_DEFAULT_LOGGER.debug('duplicate found!!')
+        d=d+1
+        GC.start if d%50==0  # garbage collection
+      elsif r.save
+        n=n+1
+        GC.start if n%50==0
+      end
+      flash[:notice]= "CSV Import Successful:  #{n} new record(s) added to data base.  #{d} duplicate(s) found.  #{n + d} record(s) processed."
+    end
+    redirect_to :back
+  end
+  
+  def bulk_upload_edit_students
+    
+  end
+  
+  def bulk_upload_update_students
+    require 'fastercsv'
+    file = params[:dump][:file]
+    # render :text => '<pre>aaaa' + params.to_yaml and return
+    @parsed_file = FasterCSV.parse(file, :headers => true, :header_converters => :symbol)
+    school_id = params[:dump][:school_id]
+    school = School.find school_id   
+    @parsed_file.each  do |row|
+      r = Student.find_by_id_and_school_id(row[:student_id],school.id)
+      if r
+        r.last_name = row[:last_name] if !row[:last_name].nil?
+        r.first_name = row[:first_name] if !row[:first_name].nil?
+        r.email = row[:email] if !row[:email].nil?
+        r.gender = row[:gender] if !row[:gender].nil?
+        # r.dob = row[:date_of_birth] if !row[:date_of_birth].nil?
+        r.status = row[:status] if !row[:status].nil?
+        r.yog = row[:yog] if !row[:yog].nil?
+        r.course_id = row[:course_id] if !row[:course_id].nil?
+        r.active_ind = row[:active_ind] if !row[:active_ind].nil?
+        r.save
+      end
+      flash[:notice]= "Bulk Upload Students updated Successfully!!"
+    end
+    redirect_to school_students_path(school)
+  end
+  
+private
+  
+#  # Return the limit for the select query
+#  def items_per_page(default=25)
+#    params[:per_page].nil? || params[:per_page].size.zero? ?
+#        default : params[:per_page].to_i   
+#  end
+#  
+#  # Return the page number for the select query (one-based offsets)
+#  def page_number
+#    params[:page].nil? || params[:page].size.zero? ? 1 : params[:page].to_i
+#  end
+#      
+  # Return the column to sort by for the select query
+  def sort_column
+    %w[ id last_name gender yog grade_at_enrollment status
+       course_id ].include?(params[:sort]) ?
+        params[:sort] : "last_name"
+  end
+
+  def course
+    begin
+      Course.find(params[:course_id])
+    rescue
+      nil
+    end
+  end
+  
+  def teacher
+    begin
+      Teacher.find(@current_user.teacher_id || params[:teacher_id])
+    rescue
+      nil
+    end
+  end
+  
+  # Returns @subset or params[:subset] or default
+  def subset(default='all')
+    if !(@subset.nil? || @subset.empty?)
+      @subset
+    elsif !(params[:subset].nil? || params[:subset].empty?)
+      params[:subset]
+    else
+      default
+    end
+  end
+  
+  # Returns: array of status values
+  def status_subset
+    case subset
+    when 'active'
+      Student::ACTIVE_STATUS
+    when 'inactive'
+      Student::INACTIVE_STATUS
+    when 'opted-out'
+      Student::OPTED_OUT_STATUS
+    when 'no-class-assigned'
+      Student::NCA_STATUS
+    when 'bulk-assign'
+      Student::ACTIVE_STATUS + Student::OPTED_OUT_STATUS +
+        Student::NCA_STATUS
+    else
+      nil
+    end
+  end
+  
+  # Return an array of IDs of teacher's course(s)
+  def teachers_courses
+    courses = Course.all(:conditions => {:year => @current_year,
+        :school_id => @school.id, :teacher_id => teacher.id})
+    ids = courses.map { |course| course.id }
+  end
+ 
+  def student_conditions
+    # Creating conditions as ["field1 = ? AND field2 IN (?)", value1, value2]
+    c = [[]]
+    unless @school.nil?
+      c[0] << "school_id = ?"; c << @school.id
+    end
+    if @course
+      c[0] << "course_id = ?"; c << @course.id
+    elsif user_is_teacher?
+      # include students not assigned to courses
+      c[0] << "(course_id IN (?) OR course_id IS NULL)"; c << teachers_courses
+    elsif @teacher
+      c[0] << "course_id IN (?)"; c << teachers_courses
+    end
+    if @course.nil? && (@teacher.nil? || user_is_teacher?) && 
+       !(subset.eql?('all') || subset.empty?)
+      c[0] << "status in (?)"; c << status_subset
+    end
+    c[0] = c[0].join(" AND ")
+    return c
+  end  
+
+end

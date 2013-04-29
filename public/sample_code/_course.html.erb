@@ -1,0 +1,17 @@
+<tr>
+  <td><%= link_to course.name, school_course_path(@school, course) %></td>
+<% unless @view_by == 'teacher' %>
+  <td>
+    <%= link_to course.teacher.display_name,
+            school_teacher_path(@school, course.teacher) %>
+  </td>
+<% end -%>
+  <td align='center'><%= course.level %></td>
+  <td align='center'><%= course.section %></td>
+  <td align='center'><%= course.students.count %></td>
+<% if @year.to_i == @current_year -%>
+  <td>
+    <%= link_to "edit", edit_school_course_path(@school, course) %>
+  </td>
+<% end -%>
+</tr>

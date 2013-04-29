@@ -1,0 +1,83 @@
+class CoursesController < ApplicationController
+  include ApplicationHelper
+  helper_method :sort_column, :sort_direction
+
+  def index
+    @year = params[:prior_year] || @current_year	
+    @school = users_school
+    
+    if user_is_teacher?
+      @teacher = @current_user.teacher
+    elsif params[:teacher_id]
+      @teacher = Teacher.find(params[:teacher_id])
+    end
+    if @teacher
+      @courses = Course.all(:order => :level,
+        :conditions => {:year => @year, :teacher_id => @teacher.id},
+        :order => sort_column + " " + sort_direction)
+      @view_by = 'teacher'
+    else
+      # show all courses for the school
+      @courses = Course.all(:order => :level,
+        :conditions => {:year => @year, :school_id => @school.id},
+        :order => sort_column + " " + sort_direction)
+      @view_by = nil
+    end
+  end
+  
+  def show
+    @school = users_school
+    @course = Course.find(params[:id])
+  end
+  
+  def edit
+    @school = users_school
+    @course = Course.find(params[:id])
+    if @course.year 
+      @year = @course.year
+    else
+      @year = @current_year
+    end
+  end
+  
+  def update
+    @course = Course.find(params[:id])
+    if @course.update_attributes(params[:course])
+      flash[:notice] = 'Class updated successfully.'
+      redirect_to school_courses_path(@course.school)
+    else
+      render :action => 'new'
+    end
+  end
+  
+  def new
+    @course = Course.new
+    @school = users_school
+  end
+  
+  def create
+    @course = Course.new(params[:course])
+    @school = @course.school
+    if @course.save
+      flash[:notice] = 'Course created successfully.'
+      redirect_to school_courses_path(@school)
+    else
+      render :action => 'new'
+    end
+  end
+  
+  private
+  
+  # Return the column to sort by for the select query
+  def sort_column
+    %w[ name teacher_id level section ].include?(params[:sort]) ?
+        params[:sort] : "level"
+  end
+
+  # Return the direction to sort - ascending or descending -
+  # for the select query
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
+
+end

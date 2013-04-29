@@ -1,0 +1,19 @@
+<%#
+  Render one student record as a table row.
+%>
+
+<tr>
+  <td><%=h student.id %></td>
+  <td><%= link_to(student.display_name, student_path(student.id)) %></td>
+  <td class='center'><%=h student.gender %></td>
+  <td><%=h student.yog %></td>
+  <td class='center'><%=h student.grade_at_enrollment %></td>
+  <td><%=h student.status %></td>
+<% if params[:course_id].nil? -%>
+  <td>
+    <%= student.course && student.course.year == @current_year ?
+          link_to(student.course.display_info, 
+            school_course_path(@school.id, student.course_id)) : nil %>
+  </td>
+<% end -%>
+</tr>

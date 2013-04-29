@@ -1,0 +1,22 @@
+<h2>
+  <%= @school.name %> Class: <%= @course.name %>
+  - Section <%= @course.section %>
+</h2>
+
+<p>
+  <%= link_to "Edit Class Info", edit_school_course_path(@school, @course) %>
+  | <%= link_to "Students", school_students_path(@school, :course_id => @course.id) %>
+</p>
+
+<table class='left-headings'>
+  <tr><th>Course name:</th><td><%= @course.name %></td></tr>
+  <tr><th>Level:</th><td><%= @course.level %></td></tr>
+  <tr><th>Section:</th><td><%= @course.section %></td></tr>
+  <tr><th>Teacher:</th><td>
+    <%= link_to(@course.teacher.display_name, school_teacher_path(@school, @course.teacher)) -%>
+  </td></tr>
+  <tr><th>Year:</th><td><%= @course.year %></td></tr>
+  <tr><th>ID number:</th><td><%= @course.id %></td></tr>
+  <tr><th>Date added:</th><td><%= @course.created_at %></td></tr>
+  <tr><th>Last changed:</th><td><%= @course.updated_at %></td></tr>
+</table>

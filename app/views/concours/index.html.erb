@@ -17,27 +17,21 @@
     <a href="http://www.emassconcours.net/" target="_blank">EMass Concours
     website</a>.
   </p>
-  <%= image_tag('/images/concours/concours_status.png', :size => '145x685',
-      :alt => 'Old Status Page', :class => 'float-left') %>
-  <%= image_tag('/images/concours/students_before.png', :size => '250x300',
-      :alt => 'Old Students Page', :class => 'float-right') %>
   <p>  
     I have served as technical consultant to the administrator for this 
     region since January 2012 &mdash; fixing bugs, adding features, and 
     providing general technical advice.
   </p>
   <p>  
-    In order to show my best work on the
-    site, I would have to provide administrator credentials, which is a very
-    bad idea security-wise. This page will have to suffice to show my work
-    so far.
+    In order to show my best work on the site, I would have to provide
+    administrator credentials, which is a very bad idea security-wise. This
+    sample code will have to suffice.
   </p>
-  <p>
-  <%= image_tag('/images/concours/left_arrow.png', :size => '32x32',
-      :alt => 'left arrow', :class => 'float-left') %>
-  <%= image_tag('/images/concours/right_arrow.png', :size => '32x32',
-      :alt => 'right arrow', :class => 'float-right') %>
-    The images to the left and right are examples of what the site looked like
-    before I started.
-  </p>
+  <div class='indent'>
+    <h3>Sample Code</h3>
+    <ul>
+      <%= render :partial => 'sample_code_link', 
+              :collection => @sample_code_items, :as => :item %>
+    </ul>
+  </div>
 </div>

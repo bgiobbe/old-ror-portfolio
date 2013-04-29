@@ -61,14 +61,13 @@ body {
     margin-left: 15px; }
 
 div#search {
-  float: right;
-  vertical-align: middle;
-  margin: 10px; }
+  margin: 10px 0;
+  font-size: 12px; }
 
 div#toolbar {
   clear: both;
   width: 800px;
-  margin: 10px 0 20px 0;
+  margin: 10px 0 10px 0;
   padding: 5px 0;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
@@ -87,6 +86,11 @@ table.sortable {
   table.sortable th, table.sortable #resume #profile td, #resume #profile table.sortable td, table.sortable td {
     border: 1px solid #777777;
     padding: 3px; }
+  table.sortable th, table.sortable #resume #profile td, #resume #profile table.sortable td {
+    background-color: #7a5c00; }
+    table.sortable th a, table.sortable #resume #profile td a, #resume #profile table.sortable td a {
+      color: #fcfaf2;
+      text-decoration: none; }
   table.sortable th .current, table.sortable #resume #profile td .current, #resume #profile table.sortable td .current {
     padding-right: 12px;
     background-repeat: no-repeat;
@@ -192,6 +196,8 @@ ul.instructions {
     margin-bottom: 1em; }
   #concours .middle {
     vertical-align: middle; }
+  #concours .indent {
+    margin-left: 20px; }
 
 /* Resume page */
 #resume * {
@@ -258,13 +264,19 @@ ul.instructions {
     #vision dd ul {
       margin-left: 30px; }
   #vision .plaque {
-    width: 75%;
-    background-color: linen;
+    width: 50%;
+    background-color: white;
+    color: #0000cc;
     margin: 1em auto;
-    border: 4px outset #3d2e00;
+    border: 6px outset #3d2e00;
     padding: 10px;
-    text-align: center; }
+    text-align: center;
+    font-size: 1.1em; }
+  #vision #collage {
+    width: 360px;
+    margin: 20px auto; }
 
+/* Other Interests page */
 #interests header {
   clear: both;
   font-size: 1.5em;

@@ -1,0 +1,44 @@
+<%#
+# Toolbar for Students index page
+%>
+
+<p> <!-- row 1 -->
+  &nbsp;&nbsp;<%= link_to 'Create new student', new_school_student_path(@school) %>
+  &nbsp;&nbsp;|&nbsp;&nbsp;
+  <%= link_to "Upload New Students", bulk_upload_school_students_path(@school) %>
+  &nbsp;&nbsp;|&nbsp;&nbsp;
+  <%= link_to "Assign Students to Classes", bulk_assign_school_students_path(@school) %>
+<% if user_is_admin? || user_is_primary_coordinator? -%>    
+  &nbsp;&nbsp;|&nbsp;&nbsp;
+  <%= link_to "Export .csv", request.parameters.merge({:format => :csv}) %>
+<% end -%>
+</p>
+<div id="toolbar">
+  <p> <!-- row 2 -->
+    View:&nbsp;
+    <%= subsetable 'all', 'All' %>
+    &nbsp;|&nbsp; <%= subsetable 'active', 'Active' %>
+    &nbsp;|&nbsp; <%= subsetable 'inactive', 'Inactive' %>
+    &nbsp;|&nbsp; <%= subsetable 'no-class-assigned', 'No Class Assigned' %>
+    &nbsp;|&nbsp; <%= subsetable 'opted-out', 'Opted Out' %>
+  </p>
+  <!-- row 3 -->
+  <p class='inline-block'>
+    <b><%=h @count %> students</b>
+  </p>
+
+  <% form_tag(school_students_path, :method => :get, :class => "inline-block") do %>
+    &nbsp;|&nbsp;
+    Show <%= text_field_tag :per_page, @students.per_page, :size => 3 %> per page
+    <%= hidden_field_tag :subset, params[:subset] %>
+    <%= hidden_field_tag :page, params[:page] %>
+    <%= hidden_field_tag :sort, params[:sort] %>
+    <%= hidden_field_tag :direction, params[:direction] %>
+    <%= submit_tag "Set" %>
+  <% end %>
+  
+  <p class='inline-block'>
+    &nbsp;|&nbsp;
+    <%= will_paginate @students, :container => false %>
+  </p>
+</div>

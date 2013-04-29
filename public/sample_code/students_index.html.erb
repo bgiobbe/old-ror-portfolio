@@ -1,0 +1,35 @@
+<h2><%= @title %>: &nbsp; <%=h @count %> Students</h2>
+
+<%= render :partial => 'index_toolbar' %>
+
+<% if @count.zero? -%>
+<p>No Students.</p>
+<% else -%>
+  
+<p><i>Click any blue column heading to sort by that column</i></p>
+<table class='sortable'>
+  <thead>
+    <tr>
+      <th><%= sortable "id", "ID" %></th>
+      <th><%= sortable "last_name", "Name" %></th>
+      <th><%= sortable "gender", "Gender" %></th>
+      <th><%= sortable "yog", "YOG" %></th>
+      <th><%= sortable "grade_at_enrollment", "Grade<br/>First<br/>Enrolled" %></th>
+      <th><%= sortable "status", "Status" %></th>
+  <% if params[:course_id].nil? -%>
+      <th><%= sortable "course_id", "Class" %></th>
+  <% end -%>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render :partial => 'student', :collection => @students %>
+  </tbody>
+</table>
+
+<% end -%>
+
+<% if user_is_admin? || user_is_primary_coordinator? -%>
+  <p>
+    <%= link_to "All-in-One Enrollment", bulk_assign_school_students_path(@school.id) %>
+  </p>
+<% end -%>
