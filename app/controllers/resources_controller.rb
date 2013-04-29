@@ -13,7 +13,8 @@ class ResourcesController < ApplicationController
             :page => page_number, :per_page => items_per_page,
             :order => sort_column + " " + sort_direction
         )
-        @count = Resource.count        
+        @count = Resource.count
+        @media_options = Resource::MEDIA_OPTIONS.insert(0, ["Any", 0])
       }
       format.xml  {
         @resources = Resource.all
@@ -24,14 +25,15 @@ class ResourcesController < ApplicationController
 
   def search
     require 'will_paginate'
-    condition = ["author LIKE ?", "%%%s%%" % params[:q]]
     @title = 'Search Results'
+    conditions = search_conditions
     @resources = Resource.paginate(
-      :conditions => condition,
-      :page => page_number, :per_page => items_per_page,
+      :conditions => conditions,
+      :page => 1, :per_page => items_per_page,
       :order => sort_column + " " + sort_direction
     )
-    @count = Resource.count(:conditions => condition)
+    @count = Resource.count(:conditions => conditions)
+    @media_options = Resource::MEDIA_OPTIONS.insert(0, ["Any", 0])
     render 'index'
   end
   
@@ -183,5 +185,23 @@ class ResourcesController < ApplicationController
   # for the select query
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
+  
+  # Create conditions array from search parameters
+  def search_conditions
+    strings, values = [], []
+    if Resource.is_medium? params[:medium]
+      strings << "medium = ?"
+      values << params[:medium]
+    end
+    if params[:author]
+      strings << "author LIKE ?"
+      values << "%%%s%%" % params[:author]
+    end
+    if params[:title]
+      strings << "title LIKE ?"
+      values << "%%%s%%" % params[:title]
+    end
+    [strings.join(" AND ")] + values
   end
 end

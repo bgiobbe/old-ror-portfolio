@@ -1,15 +1,5 @@
-<div>
-  <h1 class='float-left'><%= @title %></h1>
+<h1><%= @title %></h1>
 
-  <div id='search'>
-    <% form_tag(search_resources_path, :method => :get) do %>
-      <%= label_tag(:q, "Author:") %>    
-      <%= text_field_tag(:q) %>
-      <%= hidden_field_tag :per_page, items_per_page %>
-      <%= submit_tag("Search") %>
-    <% end %>
-  </div>
-</div>
 <div id="toolbar">
   <%= link_to 'Add items', new_resource_path %>
   | <%= @count %> items | <%= page_entries_info @resources %><br />
@@ -20,13 +10,28 @@
   |  <%= will_paginate @resources %>
 </div>
 
+<div id='search'>
+  <% form_tag(search_resources_path, :method => :get) do %>
+    <%= hidden_field_tag :per_page, items_per_page %>
+    <%= label_tag :medium %>
+    <%= select_tag :medium,
+          options_for_select(@media_options) %>
+    <%= label_tag(:title, "Title") %>    
+    <%= text_field_tag(:title) %>
+    <%= label_tag(:author, "Author:") %>    
+    <%= text_field_tag(:author) %>
+    <%= submit_tag("Search") %>
+    <%= link_to("Reset", resources_path(:per_page => items_per_page,
+          :page => 1, :sort => sort_column, :direction => sort_direction) ) %>
+  <% end %>
+</div>
+
 <table class='sortable'>
   <tr>
     <th><%= sortable "medium", "Type" %></th>
     <th><%= sortable "title", "Title" %></th>
     <th><%= sortable "author", "Author" %></th>
     <th><%= sortable "checkout", "Checked Out" %></th>
-    <th colspan="2"></th>
   </tr>
 
   <%= render :partial => 'resource', :collection => @resources %>

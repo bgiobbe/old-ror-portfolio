@@ -22,6 +22,13 @@ class Resource < ActiveRecord::Base
   validates_presence_of :title, :checkout, :medium
   validate :medium_is_recognized
   
+  # Return true if medium is valid, false otherwise
+  def self.is_medium?(value)
+    [ BOOK, AUDIO, VIDEO ].include?(value.class == String ? value.to_i : value)
+  end
+
+  private
+
   def medium_is_recognized
     errors.add(:medium, "unrecognized medium") unless
       [ BOOK, AUDIO, VIDEO ].include? medium
