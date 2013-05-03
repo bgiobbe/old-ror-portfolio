@@ -27,11 +27,33 @@
     administrator credentials, which is a very bad idea security-wise. This
     sample code will have to suffice.
   </p>
-  <div class='indent'>
-    <h3>Sample Code</h3>
-    <ul>
-      <%= render :partial => 'sample_code_link', 
-              :collection => @sample_code_items, :as => :item %>
-    </ul>
+
+  <div class='column'>
+    <div class='indent'>
+      <h3>Sample Code</h3>
+      <ul>
+        <%= render :partial => 'sample_code_link', 
+                :collection => @sample_code_items, :as => :item %>
+      </ul>
+    </div>
+    <div id='pic1'>
+      <%= image_tag '/images/concours/show_course.png',
+          :alt => 'Show Course view', :size => '370x234' %>
+      <p class='center'>Show Course View</p>
+    </div>
+  </div>
+
+  <div class='column'>
+    <div id='pic2'>
+      <%= image_tag '/images/concours/courses_index.png',
+          :alt => 'Courses page', :size => '300x225' %>
+      <p class='center'>Courses View</p>
+    </div>
+    <div id='pic3'>
+      <%= image_tag '/images/concours/course_students.png',
+          :alt => 'Students in Course view', :size => '370x452' %>
+      <p class='center'>Students (in Course) View</p>
+    </div>
   </div>
 </div>
+

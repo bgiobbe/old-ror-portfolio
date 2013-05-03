@@ -23,6 +23,7 @@ class ResourcesController < ApplicationController
     end
   end
 
+  # GET /resources/search
   def search
     require 'will_paginate'
     @title = 'Search Results'
@@ -65,6 +66,7 @@ class ResourcesController < ApplicationController
     end
   end
 
+  # POST resources/upload_tsv
   # Upload resources from a tab-separated text file
   # Headers: Title  Author  Pub Info  Checked Out
   def upload_tsv

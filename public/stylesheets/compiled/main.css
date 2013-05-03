@@ -24,7 +24,8 @@ body {
   #page-header h1 {
     margin-bottom: 5px;
     border-bottom: 4px ridge #3d2e00;
-    font-size: 3em;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-size: 42px;
     text-shadow: 5px 5px 5px #888888; }
   #page-header nav {
     display: inline-block;
@@ -59,6 +60,34 @@ body {
   padding: 10px; }
   #page ul {
     margin-left: 15px; }
+
+/* Home/index page */
+#home {
+  margin: 30px 80px;
+  font-family: Georgia, serif; }
+  #home a:link, #home a:visited {
+    text-decoration: none; }
+  #home a:hover {
+    color: #0000ff;
+    text-decoration: underline; }
+  #home a:active {
+    color: #ff0000;
+    text-decoration: underline; }
+  #home h2 {
+    margin: 1em 0;
+    text-align: center; }
+  #home p {
+    margin: 1em 0;
+    text-align: justify; }
+  #home section header {
+    margin-bottom: 0.5em;
+    font-size: 2em; }
+  #home section ul {
+    margin-bottom: 1em; }
+  #home section li {
+    list-style-type: none; }
+  #home .hilite {
+    text-shadow: 5px 5px 5px #ffff99; }
 
 div#search {
   margin: 10px 0;
@@ -100,6 +129,9 @@ table.sortable {
   table.sortable th .desc, table.sortable #resume #profile td .desc, #resume #profile table.sortable td .desc {
     background-image: url(/images/down_arrow.png); }
 
+.center {
+  text-align: center; }
+
 .clear {
   clear: both; }
 
@@ -139,65 +171,39 @@ ul.instructions {
   margin-left: 30px;
   font-size: smaller; }
 
-/* Home/index page */
-#home {
-  padding: 30px 80px; }
-  #home a:link, #home a:visited {
-    color: #3d2e00;
-    text-decoration: none; }
-  #home a:hover {
-    color: #0000ff;
-    text-decoration: underline; }
-  #home a:active {
-    color: #ff0000;
-    text-decoration: underline; }
-  #home em {
-    font-weight: bold;
-    font-style: italic; }
-  #home h2 {
-    margin: 1em 0;
-    text-align: center; }
-  #home p {
-    margin: 1em 0;
-    text-align: justify; }
-  #home nav {
-    margin-bottom: 1em; }
-    #home nav section header {
-      margin-bottom: 0.5em;
-      font-size: 2em; }
-    #home nav section ul {
-      margin-bottom: 1em; }
-    #home nav section li {
-      list-style-type: none; }
-  #home #why {
-    font-family: Georgia, serif; }
-    #home #why ul {
-      margin-left: 40px; }
-    #home #why .hilite {
-      text-shadow: 5px 5px 5px #ffff99; }
-
 /* Concours pages */
 #concours {
-  height: 1000px;
   font-family: Georgia, serif; }
   #concours a:link, #concours a:visited {
-    color: #3d2e00;
-    text-decoration: none;
-    border-bottom: 1px dotted #3d2e00; }
+    color: #3d2e00; }
   #concours a:hover {
-    color: #0000ff;
-    text-decoration: underline; }
+    color: #0000ff; }
   #concours a:active {
-    color: #ff0000;
-    text-decoration: underline; }
+    color: #ff0000; }
   #concours img {
     padding: 5px; }
+  #concours li {
+    line-height: 150%; }
   #concours p {
     margin-bottom: 1em; }
   #concours .middle {
     vertical-align: middle; }
   #concours .indent {
     margin-left: 20px; }
+  #concours .column {
+    width: 370px;
+    display: inline-block;
+    margin: 10px;
+    vertical-align: top; }
+  #concours #pic1 {
+    width: 370px;
+    padding-top: 60px; }
+  #concours #pic2 {
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto; }
+  #concours #pic3 {
+    width: 370px; }
 
 /* Resume page */
 #resume * {
@@ -243,14 +249,10 @@ ul.instructions {
 
 /* Vision page */
 #vision {
-  /*
-  $vision-bg: $bg-color;
-  $vision-fg: #001A66;
-  background-color: $vision-bg;
-  color: $vision-fg;
-  */ }
-  #vision article {
-    margin-bottom: 20px; }
+  font-family: Georgia, serif article;
+    font-family-margin-bottom: 20px; }
+  #vision h1 {
+    font-family: "Comic Sans MS", cursive, sans-serif; }
   #vision p {
     margin-top: 1em; }
   #vision dl {
@@ -274,7 +276,19 @@ ul.instructions {
     font-size: 1.1em; }
   #vision #collage {
     width: 360px;
-    margin: 20px auto; }
+    display: inline-block;
+    vertical-align: middle;
+    margin: 20px 20px 10px 100px; }
+  #vision #sidebar {
+    width: 170px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 80px;
+    padding: 5px;
+    text-align: justify;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-size: 90%;
+    color: black; }
 
 /* Other Interests page */
 #interests header {
