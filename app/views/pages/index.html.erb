@@ -41,20 +41,27 @@
             </p>
           </div>
           <ul>
-            <li><a href="/concours/index">
-                Le Grand Concours: a Ruby-on-Rails consulting project
-            </a></li>
-            <li><a href="/resources/">
-              Library History: a small Ruby-on-Rails app
-            </a></li>
-            <li><a href="pages/resume"> My R&eacute;sum&eacute;</a></li>
+            <li>
+              <%= link_to( 
+                    "Le Grand Concours: a Ruby-on-Rails consulting project",
+                    :action => 'concours') %>
+            </li>
+            <li>
+              <%= link_to("Library History: a small Ruby-on-Rails app",
+                    :controller => 'resources') %>
+            </li>
+            <li>
+              <%= link_to('My R&eacute;sum&eacute;', :action => 'resume') %>
+            </li>
           </ul>
         </section>
         <section>
-          <header><a href="pages/vision">Vision</a></header>
+          <header><%= link_to('Vision', :action => "vision") %></header>
         </section>
         <section>
-          <header><a href="pages/interests">Other Interests</a></header>
+          <header>
+            <%= link_to 'Other Interests', :action => "interests" %>
+          </header>
         </section>
       </div>
     </div>
