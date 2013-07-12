@@ -1,3 +1,5 @@
-Hi! I am a software engineer who is becoming a web developer.
-This repository is my portfolio to show what I can do and to tell a little bit about who I am. 
+Hi! I am a senior software engineer who is transitioning to the web.
+This repository contains my portfolio to show a little bit of what I can do and who I am.
+You can view it at [http://bgiobbe.herokuapp.com/](http://bgiobbe.herokuapp.com/).
+
 If you need a Ruby-on-Rails person in the Boston MetroWest area, please consider me ;)
