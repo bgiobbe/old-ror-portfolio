@@ -1,69 +1,42 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-    <title>
-      Beth Giobbe | Portfolio
-    </title>
-    <%= stylesheet_link_tag 'compiled/main' %>
-  </head>
-  <body>
-    <header id='page-header'>
-      <h1>Beth Giobbe</h1>
-    </header>
-    <div id='page'>
-      <div id="home">
-        <section>
-          <header>Professional</header>
-          <div id='why'>
-            <p>After many years of software engineering, I am shifting my
-              career focus to web development. Web development offers more
-              scope for creativity and involves more diverse types of work and
-              more professional longevity.
-            </p>
-            <p>In the beginning I looked for a technology stack that fit me.
-              I chose open-source rather than proprietary (MS), MVC framework
-              (like Rails or Django) rather than content manager (like Drupal or
-              Wordpress). I planned to use subversion for source control, but
-              then discovered and adopted git. Two online classes I took included
-              Ruby on Rails and I picked up a consulting gig for a website written
-              in Ruby on Rails, so I've chosen that for my first stack.
-            </p>
-            <p>  
-              There are so many big and little things that you just can't get
-              from coursework. To reach the professional standard I am accustomed
-              to, I need to work with experienced web developers.
-              <span class="hilite">What are the best practices that produce
-              websites that work well and are maintainable? What's different
-              about the web development lifecyle? How do you develop 
-              efficiently?</span> Apprentice.io looks like exactly  what I have
-              been looking for.
-            </p>
-          </div>
-          <ul>
-            <li>
-              <%= link_to( 
-                    "Le Grand Concours: a Ruby-on-Rails consulting project",
-                    :action => 'concours') %>
-            </li>
-            <li>
-              <%= link_to("Library History: a small Ruby-on-Rails app",
-                    :controller => 'resources') %>
-            </li>
-            <li>
-              <%= link_to('My R&eacute;sum&eacute;', :action => 'resume') %>
-            </li>
-          </ul>
-        </section>
-        <section>
-          <header><%= link_to('Vision', :action => "vision") %></header>
-        </section>
-        <section>
-          <header>
-            <%= link_to 'Other Interests', :action => "interests" %>
-          </header>
-        </section>
-      </div>
-    </div>
-  </body>
-</html>
+<div id="home">
+  <section>
+    <p>After many years of software engineering, I am shifting my
+      career focus to web development. Web development offers more
+      scope for creativity and involves more diverse types of work and
+      more professional longevity.
+    </p>
+    <p>In the beginning I looked for a technology stack that fit me.
+      I chose open-source rather than proprietary (MS), MVC framework
+      (like Rails or Django) rather than content manager (like Drupal or
+      Wordpress). I planned to use subversion for source control, but
+      then discovered and adopted git. Two online classes I took included
+      Ruby on Rails and I picked up a consulting gig for a website written
+      in Ruby on Rails, so I've chosen that for my first stack.
+    </p>
+    <p>This website is intended to show a little bit of what I can do and
+      who I am.
+    </p>
+  </section>
+  <nav>
+    <header>Professional</header>
+    <ul>
+      <li>
+        <%= link_to( 
+              "Le Grand Concours: a Ruby-on-Rails consulting project",
+              pages_concours_path) %>
+      </li>
+      <li>
+        <%= link_to("Library History: a small Ruby-on-Rails app",
+              items_path) %>
+      </li>
+      <li>
+        <%= link_to('My Résumé', pages_resume_path) %>
+      </li>
+    </ul>
+    <header>Other</header>
+    <ul>
+      <li><%= link_to('Vision', pages_vision_path) %></li>
+      <li><%= link_to('Hobbies', pages_interests_path) %></li>
+    </ul>  
+  </nav>
+</div>

@@ -1,0 +1,86 @@
+// Styles used in application layout
+
+$width: 800px;
+$bg-color: #FCFAF2;
+$bg-brighter: #FAF0E6;
+$main-color: #3D2E00;
+$default-border: 1px solid black;
+$nav-bar-height: 22px;
+$nav-bar-bg-color: #7A5C00;
+$serif: Georgia, serif;
+$cursive: "Comic Sans MS", cursive, sans-serif;
+
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: {
+    image: image-url("rainbow_swirl800x800.png");
+    size: 100%;
+    repeat:no-repeat;
+  }
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  color: $main-color;
+  font-family: $serif;
+  font-size: 14px;
+}
+#page-header {
+  background-color: $bg-color;
+  width: $width;
+  margin: 10px auto 5px auto;
+  border: 5px outset black;
+  padding: 10px;
+
+  h1 {
+    margin-bottom: 5px;
+    border-bottom: 4px ridge $main-color;
+    padding: { top: 10px; bottom: 20px; }
+    font-family: $cursive;
+    font-size: 42px;
+    text-shadow: 5px 5px 5px #888888;
+  }
+  nav {
+    display: inline-block;
+    height: $nav-bar-height;
+    // margin-bottom: 5px;
+    font-size: 11px;
+
+    ul {
+      list-style-type: none;
+      margin: auto;
+   }
+    li {
+      height: $nav-bar-height;
+      background-color: $nav-bar-bg-color;
+      border: 3px solid $bg-color;
+      padding: { left: 10px; right: 10px; }
+      font-variant:small-caps;
+      float: left;
+ 
+      a {
+        color: $bg-color;
+        font-weight: bold;
+        font-variant:small-caps;
+        text-decoration:none;
+        display: block; /* makes whole block clickable (instead of just text) */
+        line-height: $nav-bar-height;
+      }
+    }
+  }
+}
+
+#page {
+  background-color: $bg-color;
+  width: $width;
+  margin: 5px auto 20px auto;
+  border: 5px outset black;
+  padding: 10px;
+ 
+  ul {
+    margin-left: 15px;
+  }
+}
+

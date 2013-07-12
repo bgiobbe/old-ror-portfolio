@@ -1,0 +1,67 @@
+// Place all the styles related to the items controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+#library_history {
+  $width: 800px;
+  $bg-color: #fcfaf2;
+  $bg-brighter: #faf0e6;
+  $main-color: #3d2e00;
+  $default-border: 1px solid black;
+  $nav-bar-height: 22px;
+  $nav-bar-bg-color: #7a5c00;
+  $serif: georgia, serif;
+  $cursive: "comic sans ms", cursive, sans-serif;
+    
+  div#search {
+    margin: 10px 0;
+    font-size: 12px;
+  }
+  div#toolbar {
+    clear: both;
+    width: $width;
+    margin: 10px 0 10px 0;
+    padding: 5px 0;
+    border: {
+      top: $default-border;
+      bottom: $default-border;
+    }
+    font-size: 12px;
+
+    a { text-decoration: none; }
+
+    .pagination {
+      display: inline-block;
+    }
+  }
+  table.sortable {
+    $border: 1px solid #777777;
+
+    width: $width;
+    border-collapse: collapse;
+    border: $border;
+    font: 12px arial,sans-serif;
+
+    th, td {
+      border: $border;
+      padding: 3px;
+    }
+    th {
+      background-color: $nav-bar-bg-color;
+      a { color: $bg-color; text-decoration: none }
+    }
+
+    /* directional arrow on current sort column */
+    th .current {
+      padding-right: 12px;
+      background-repeat: no-repeat;
+      background-position: right center;
+    }
+    th .asc {
+      background-image: image-url("up_arrow.png")
+    }
+    th .desc {
+      background-image: image-url("down_arrow.png")
+    }
+  }
+}
+

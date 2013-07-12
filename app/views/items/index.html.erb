@@ -1,0 +1,42 @@
+<div id='library_history'>
+  <h1><%= @title %></h1>
+
+  <div id="toolbar">
+    <%= link_to 'Add items', new_item_path %> |
+    <%= form_tag(items_path, :method => :get, :class => "inline-block") do %>
+      Show <%= text_field_tag :per_page, items_per_page, :size => 2 %> items per page
+      <%= submit_tag "Set" %>
+    <% end %>
+    <br/>
+    <%= page_entries_info @items %>
+    |  <%= will_paginate @items %>
+  </div>
+
+  <div id='search'>
+    <%= form_tag(search_items_path, :method => :get) do %>
+      <%= hidden_field_tag :per_page, items_per_page %>
+      <%= label_tag :medium %>
+      <%= select_tag :medium,
+            options_for_select(@media_options) %>
+      <%= label_tag(:title, "Title") %>    
+      <%= text_field_tag(:title) %>
+      <%= label_tag(:author, "Author:") %>    
+      <%= text_field_tag(:author) %>
+      <%= submit_tag("Search") %>
+      <%= link_to("Reset", items_path(:per_page => items_per_page,
+            :page => 1, :sort => sort_column, :direction => sort_direction) ) %>
+    <% end %>
+  </div>
+
+  <table class='sortable'>
+    <tr>
+      <th><%= sortable "medium", "Type" %></th>
+      <th><%= sortable "title", "Title" %></th>
+      <th><%= sortable "author", "Author" %></th>
+      <th><%= sortable "checkout", "Checked Out" %></th>
+    </tr>
+
+    <%= render :partial => 'item', :collection => @items %>
+
+  </table>
+</div>

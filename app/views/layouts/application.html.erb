@@ -5,21 +5,23 @@
     <title>
       Beth Giobbe Portfolio | <%=h @title || params[:action].capitalize %>
     </title>
-    <%= stylesheet_link_tag 'compiled/main' %>
+    <%= stylesheet_link_tag('application', media: 'all')  %>
   </head>
   <body>
       <header id='page-header'>
         <h1>Beth Giobbe</h1>
+	<% unless @no_navigation %>
         <nav>
           <ul>
             <li><%= link_to "Home", root_path %></li>
-            <li><%= link_to "Consulting Project", "/concours/" %></li>
-            <li><%= link_to "Library History", resources_path %></li>
-            <li><%= link_to "Résumé", "/pages/resume" %></li>
-            <li><%= link_to "Vision", "/pages/vision" %></li>
-            <li><%= link_to "Interests", "/pages/interests" %></li>
+            <li><%= link_to "Consulting Project", pages_concours_path %></li>
+            <li><%= link_to "Library History", items_path %></li>
+            <li><%= link_to "Résumé", pages_resume_path %></li>
+            <li><%= link_to "Vision", pages_vision_path %></li>
+            <li><%= link_to "Interests", pages_interests_path %></li>
           </ul>
-        </nav>
+	</nav>
+        <% end %>
       </header>
 
       <div id='page'>

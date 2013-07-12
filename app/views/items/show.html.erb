@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @item.title %>
+</p>
+
+<p>
+  <b>Author:</b>
+  <%= @item.author %>
+</p>
+
+<p>
+  <b>Medium:</b>
+  <%= @item.medium %>
+</p>
+
+<p>
+  <b>Pubinfo:</b>
+  <%= @item.pubinfo %>
+</p>
+
+<p>
+  <b>Checkout:</b>
+  <%= @item.checkout %>
+</p>
+
+
+<%= link_to 'Edit', edit_item_path(@item) %> |
+<%= link_to 'Back', items_path %>
